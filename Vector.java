@@ -20,8 +20,8 @@ public class Vector {
         this.magnitude = Math.sqrt(this.xComponent * this.xComponent + this.yComponent * this.yComponent);
     }
 
-    public Vector(Point p1) {
-        Point p2 = new Point(0, 0);
+    public Vector(Point p2) {
+        Point p1 = new Point(0, 0);
         this.p1 = p1;
         this.p2 = p2;
         this.xComponent = this.p2.getX() - this.p1.getX();
@@ -30,8 +30,38 @@ public class Vector {
         this.magnitude = Math.sqrt(this.xComponent * this.xComponent + this.yComponent * this.yComponent);
     }
 
+    public Vector(double magnitude, Vector unitVector) {
+        scaledProduct(magnitude, unitVector);
+    }
+
+    public Vector() {
+    }
+
+    private void scaledProduct(double magnitude, Vector unitVector) {
+        Point point = new Point(magnitude * unitVector.getXComponent(), magnitude * unitVector.getYComponent());
+        new Vector(point);
+    }
+
+    public static Vector scalarProduct(double magnitude, Vector unitVector) {
+        Point point = new Point(magnitude * unitVector.getXComponent(), magnitude * unitVector.getYComponent());
+        return new Vector(point);
+    }
+
     public static double dotProduct(Vector v1, Vector v2) {
         return (v1.xComponent * v2.xComponent + v1.yComponent * v2.yComponent);
+    }
+
+    public static Vector sum(Vector v1, Vector v2) {
+        return new Vector(new Point(v1.getXComponent() + v2.getXComponent(), v1.getYComponent() + v2.getYComponent()));
+    }
+
+    public static Vector difference(Vector from, Vector vector) {
+        return new Vector(new Point(from.getXComponent() - vector.getXComponent(),
+                from.getYComponent() - vector.getYComponent()));
+    }
+
+    public static Vector scalarDivision(Vector vector, double by) {
+        return new Vector(new Point(vector.getXComponent() / by, vector.getYComponent() / by));
     }
 
     public static double angleBetween(Vector v1, Vector v2) {
@@ -58,16 +88,16 @@ public class Vector {
         return this.xComponent;
     }
 
-    public void setXComponent(long xComponent) {
-        this.xComponent = xComponent;
+    public void setXComponent(double d) {
+        this.xComponent = d;
     }
 
     public double getYComponent() {
         return this.yComponent;
     }
 
-    public void setYComponent(long yComponent) {
-        this.yComponent = yComponent;
+    public void setYComponent(double d) {
+        this.yComponent = d;
     }
 
     public double getAngle() {
@@ -86,10 +116,6 @@ public class Vector {
         this.magnitude = length;
     }
 
-    public static Vector sum(Vector v1, Vector v2) {
-        return new Vector(new Point(v1.getXComponent() + v2.getXComponent(), v1.getYComponent() + v2.getYComponent()));
-    }
-
     @Override
     public boolean equals(Object v) {
         Vector vector = (Vector) v;
@@ -101,4 +127,5 @@ public class Vector {
         return String.format("(%.2f)i + (%.2f)j {%.2f(%.2f)}", this.xComponent, this.yComponent, this.magnitude,
                 this.angle);
     }
+
 }

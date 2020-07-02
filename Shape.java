@@ -4,6 +4,12 @@ public class Shape {
     private long mass;
     private double invMass;
     private float restitution;
+    private Type type;
+    private Point position;
+
+    public enum Type {
+        Circle, AABB
+    }
 
     public Vector getAcceleration() {
         return this.acceleration;
@@ -48,6 +54,22 @@ public class Shape {
 
     public void setRestitution(float restitution) {
         this.restitution = restitution;
+    }
+
+    public Type getType() {
+        return this.type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Point getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
     }
 
 }
