@@ -17,7 +17,12 @@ public class AABB extends Shape {
         this.setVelocity(new Vector(new Point(0, 0), new Point(0, 0)));
         this.setMass(0);
         this.setRestitution(1);
-        this.setType(Type.Circle);
+        this.setType(Type.AABB);
+        updatePosition();
+    }
+
+    public void updatePosition() {
+        setPosition(new Point((min.getX() + max.getX()) / 2, (min.getY() + max.getY()) / 2));
     }
 
     public Point getMin() {
@@ -40,6 +45,7 @@ public class AABB extends Shape {
 
     public void setMin(Point min) {
         this.min = min;
+        updatePosition();
     }
 
     public Point getMax() {
@@ -48,6 +54,7 @@ public class AABB extends Shape {
 
     public void setMax(Point max) {
         this.max = max;
+        updatePosition();
     }
 
 }

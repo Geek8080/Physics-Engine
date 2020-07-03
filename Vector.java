@@ -68,28 +68,13 @@ public class Vector {
         return Math.acos(Vector.dotProduct(v1, v2) / (v1.getMagnitude() * v2.getMagnitude()));
     }
 
-    public Point getP1() {
-        return this.p1;
-    }
-
-    public void setP1(Point p1) {
-        this.p1 = p1;
-    }
-
-    public Point getP2() {
-        return this.p2;
-    }
-
-    public void setP2(Point p2) {
-        this.p2 = p2;
-    }
-
     public double getXComponent() {
         return this.xComponent;
     }
 
     public void setXComponent(double d) {
         this.xComponent = d;
+        update();
     }
 
     public double getYComponent() {
@@ -98,6 +83,7 @@ public class Vector {
 
     public void setYComponent(double d) {
         this.yComponent = d;
+        update();
     }
 
     public double getAngle() {
@@ -106,14 +92,16 @@ public class Vector {
 
     public void setAngle(double angle) {
         this.angle = angle;
+        update();
     }
 
     public double getMagnitude() {
         return this.magnitude;
     }
 
-    public void setMagnitude(double length) {
-        this.magnitude = length;
+    public void update() {
+        this.angle = Math.atan2(this.yComponent, this.xComponent);
+        this.magnitude = Math.sqrt(this.xComponent * this.xComponent + this.yComponent * this.yComponent);
     }
 
     @Override
