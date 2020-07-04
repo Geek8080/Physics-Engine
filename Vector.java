@@ -107,7 +107,8 @@ public class Vector {
     @Override
     public boolean equals(Object v) {
         Vector vector = (Vector) v;
-        return ((this.xComponent == vector.xComponent) && (this.yComponent == vector.yComponent));
+        return (ImpulseMath.equal(this.xComponent, vector.xComponent)
+                && ImpulseMath.equal(this.yComponent, vector.yComponent));
     }
 
     @Override

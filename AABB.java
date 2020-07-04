@@ -21,12 +21,45 @@ public class AABB extends Shape {
         updatePosition();
     }
 
+    public AABB(Point position, double height, double width) throws IllegalArgumentException {
+        double minX;
+        double minY;
+        double maxX;
+        double maxY;
+
+        minX = position.getX() - (width / 2.0d);
+        minY = position.getY() + (height / 2.0d);
+
+        maxX = position.getX() + (width / 2.0d);
+        maxY = position.getY() - (height / 2.0d);
+
+        if (minX < 0 || minY < height) {
+            throw new IllegalArgumentException("Inappropriate position");
+        }
+
+        Point min = new Point(minX, minY);
+        Point max = new Point(maxX, maxY);
+        this.min = min;
+        this.max = max;
+        this.setVelocity(new Vector(new Point(0, 0), new Point(0, 0)));
+        this.setMass(0);
+        this.setRestitution(1);
+        this.setType(Type.AABB);
+        setPosition(position);
+
+        // System.out.println(getPosition());
+    }
+
     public void updatePosition() {
-        setPosition(new Point((min.getX() + max.getX()) / 2, (min.getY() + max.getY()) / 2));
+        setPosition(new Point((min.getX() + max.getX()) / 2.0d, (min.getY() + max.getY()) / 2.0d));
     }
 
     public Point getMin() {
         return this.min;
+    }
+
+    public Point getMax() {
+        return this.max;
     }
 
     /*
@@ -41,20 +74,6 @@ public class AABB extends Shape {
 
         // No separating axis found, therefor there is at least one overlapping axis
         return true;
-    }
-
-    public void setMin(Point min) {
-        this.min = min;
-        updatePosition();
-    }
-
-    public Point getMax() {
-        return this.max;
-    }
-
-    public void setMax(Point max) {
-        this.max = max;
-        updatePosition();
     }
 
 }
