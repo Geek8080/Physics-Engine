@@ -1,6 +1,6 @@
 public class Shape {
     private Vector velocity;
-    private Vector acceleration;
+    private Vector force;
     private long mass;
     private double invMass;
     private float restitution;
@@ -11,12 +11,12 @@ public class Shape {
         Circle, AABB
     }
 
-    public Vector getAcceleration() {
-        return this.acceleration;
+    public Vector getForce() {
+        return this.force;
     }
 
-    public void setAcceleration(Vector acceleration) {
-        this.acceleration = acceleration;
+    public void setForce(Vector force) {
+        this.force = force;
     }
 
     public long getMass() {

@@ -7,7 +7,7 @@ public class Circle extends Shape {
         this.setVelocity(new Vector(new Point(0.0d, 0.0d), new Point(0, 0)));
         this.setMass(0);
         this.setRestitution(1);
-        this.setAcceleration(new Vector(new Point(0, 0), new Point(0, 0)));
+        this.setForce(new Vector(new Point(0, 0), new Point(0, 0)));
         this.setType(Type.Circle);
     }
 

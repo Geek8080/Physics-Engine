@@ -4,7 +4,7 @@ public class ImpulseMath {
     public static final double EPSILON_SQ = EPSILON * EPSILON;
     public static final double BIAS_RELATIVE = 0.95d;
     public static final double BIAS_ABSOLUTE = 0.01d;
-    public static final double DT = 1.0d / 60.0d;
+    public static final double DT = 0.016d;// 1.0d / 60.0d;(calculated for 1 frame per 16ms)
     public static final Vector GRAVITY = new Vector(new Point(0.0d, 50.0d));
     public static final double RESTING = Vector.scalarProduct(DT, GRAVITY).getMagnitude() + EPSILON;
     public static final double PENETRATION_ALLOWANCE = 0.05d;
