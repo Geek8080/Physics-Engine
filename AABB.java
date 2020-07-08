@@ -18,6 +18,8 @@ public class AABB extends Shape {
         this.setMass(0);
         this.setRestitution(1);
         this.setForce(new Vector(new Point(0, 0), new Point(0, 0)));
+        this.setStaticFriction(0.5d);
+        this.setDynamicFriction(0.3d);
         this.setType(Type.AABB);
         updatePosition();
     }
@@ -46,6 +48,8 @@ public class AABB extends Shape {
         this.setMass(0);
         this.setRestitution(1);
         this.setForce(new Vector(new Point(0, 0), new Point(0, 0)));
+        this.setStaticFriction(0.5d);
+        this.setDynamicFriction(0.3d);
         this.setType(Type.AABB);
         setPosition(position);
 

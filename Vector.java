@@ -51,6 +51,10 @@ public class Vector {
         return (v1.xComponent * v2.xComponent + v1.yComponent * v2.yComponent);
     }
 
+    public static Vector crossProduct(Vector v1, Vector v2) {
+        return new Vector(new Point(v1.getXComponent() * v2.getYComponent(), -v1.getYComponent() * v2.getXComponent()));
+    }
+
     public static Vector sum(Vector v1, Vector v2) {
         return new Vector(new Point(v1.getXComponent() + v2.getXComponent(), v1.getYComponent() + v2.getYComponent()));
     }

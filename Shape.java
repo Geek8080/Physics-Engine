@@ -4,6 +4,8 @@ public class Shape {
     private long mass;
     private double invMass;
     private float restitution;
+    private double staticFriction;
+    private double dynamicFriction;
     private Type type;
     private Point position;
 
@@ -17,6 +19,10 @@ public class Shape {
 
     public void setForce(Vector force) {
         this.force = force;
+    }
+
+    public void applyForce(Vector force) {
+        this.force = Vector.sum(this.getForce(), force);
     }
 
     public long getMass() {
@@ -70,6 +76,22 @@ public class Shape {
 
     public void setPosition(Point position) {
         this.position = position;
+    }
+
+    public double getStaticFriction() {
+        return this.staticFriction;
+    }
+
+    public void setStaticFriction(double staticFriction) {
+        this.staticFriction = staticFriction;
+    }
+
+    public double getDynamicFriction() {
+        return this.dynamicFriction;
+    }
+
+    public void setDynamicFriction(double dynamicFriction) {
+        this.dynamicFriction = dynamicFriction;
     }
 
 }
