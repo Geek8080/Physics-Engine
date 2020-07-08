@@ -42,7 +42,7 @@ public class Shape {
 
     private void setInvMass(long mass) {
         if (mass == 0) {
-            invMass = Long.MAX_VALUE;
+            invMass = 0;
             return;
         }
         this.invMass = 1.0d / (double) mass;
