@@ -48,8 +48,8 @@ public class CollisionAABBCircle implements CollisionCallback {
         manifold.contactCount = 1;
 
         if (inside) {
-            manifold.normal.setXComponent((-normal.getXComponent()) / normal.getMagnitude());
-            manifold.normal.setYComponent((-normal.getYComponent()) / normal.getMagnitude());
+            manifold.normal.setXComponent((-n.getXComponent()) / n.getMagnitude());
+            manifold.normal.setYComponent((-n.getYComponent()) / n.getMagnitude());
         } else {
             manifold.normal.setXComponent((normal.getXComponent()) / normal.getMagnitude());
             manifold.normal.setYComponent((normal.getYComponent()) / normal.getMagnitude());
