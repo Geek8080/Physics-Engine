@@ -21,7 +21,7 @@ public class Circle extends Shape {
         body.mass = ImpulseMath.PI * radius * radius * density;
         body.invMass = (body.mass != 0.0f) ? 1.0f / body.mass : 0.0f;
         body.inertia = body.mass * radius * radius;
-        body.invInertia = (body.inertia != 0.0f) ? 1.0f / body.inertia : .0f;
+        body.invInertia = (body.inertia != 0.0f) ? 1.0f / body.inertia : 0.0f;
     }
 
     @Override
