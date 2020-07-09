@@ -1,5 +1,7 @@
 package org.geek8080.physics2d;
 
+import sun.security.util.Length;
+
 public class Vector2D {
 
     public float x;
@@ -249,5 +251,20 @@ public class Vector2D {
     @Override
     public String toString() {
         return String.format(" {(%.2f)i + (%.2f)j} ", this.x, this.y);
+    }
+
+    /**
+     * returns an array of len Vector2D objects
+     * @param len
+     * @return
+     */
+    public static Vector2D[] arrayOf(int len) {
+        Vector2D[] arr = new Vector2D[len];
+
+        while (--len >= 0) {
+            arr[len] = new Vector2D();
+        }
+
+        return arr;
     }
 }
