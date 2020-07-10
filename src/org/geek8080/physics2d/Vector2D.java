@@ -142,7 +142,7 @@ public class Vector2D {
     // scalar. This scalar value actually represents the magnitude of the orthogonal
     // vector along the z-axis, if the cross product were to actually be performed
     // in 3D.
-    public static double crossProduct(Vector2D v1, Vector2D v2) {
+    public static float crossProduct(Vector2D v1, Vector2D v2) {
         return v1.x * v2.y - v1.y * v2.x;
     }
 
@@ -255,6 +255,7 @@ public class Vector2D {
 
     /**
      * returns an array of len Vector2D objects
+     * 
      * @param len
      * @return
      */
