@@ -33,65 +33,121 @@ public class Vector2D {
 
     // methods for scaling Vector2D objects starts here
 
-    // multiplies the x and y of v by s
+    /**
+     * multiplies the x and y of v by s
+     * 
+     * @param v
+     * @param s
+     */
     public static void scaledMultiplication(Vector2D v, float s) {
         v = Vector2D.scaledMultiplicationN(v, s);
     }
 
-    // returns new Vector2 object with x and y of v multiplied by s
+    /**
+     * returns new Vector2 object with x and y of v multiplied by s
+     * 
+     * @param v
+     * @param s
+     */
     public static Vector2D scaledMultiplicationN(Vector2D v, float s) {
         return new Vector2D(s * v.x, s * v.y);
     }
 
-    // multiplies x and y components by s
+    /**
+     * multiplies x and y components by s
+     * 
+     * @param s
+     */
     public void scaledMultiplication(float s) {
         this.x *= s;
         this.y *= s;
     }
 
-    // divides the x and y of v by s
+    /**
+     * divides the x and y of v by s
+     * 
+     * @param v
+     * @param s
+     */
     public static void scaledDivision(Vector2D v, float s) {
         v = Vector2D.scaledDivisionN(v, s);
     }
 
-    // returns new Vector2 object with x and y of v divided by s
+    /**
+     * returns new Vector2 object with x and y of v divided by s
+     * 
+     * @param v
+     * @param s
+     */
     public static Vector2D scaledDivisionN(Vector2D v, float s) {
         return new Vector2D(v.x / s, v.y / s);
     }
 
-    // divides x and y components by s
+    /**
+     * divides x and y components by s
+     * 
+     * @param s
+     */
     public void scaledDivision(float s) {
         this.x /= s;
         this.y /= s;
     }
 
-    // increments the x and y of v by s
+    /**
+     * increments the x and y of v by s
+     * 
+     * @param v
+     * @param s
+     */
     public static void scaledSum(Vector2D v, float s) {
         v = Vector2D.scaledSumN(v, s);
     }
 
-    // returns new Vector2 object with x and y of v incremented by s
+    /**
+     * returns new Vector2 object with x and y of v incremented by s
+     * 
+     * @param v
+     * @param s
+     */
     public static Vector2D scaledSumN(Vector2D v, float s) {
         return new Vector2D(v.x + s, v.y + s);
     }
 
-    // increments x and y components by s
+    /**
+     * increments x and y components by s
+     * 
+     * @param s
+     */
     public void scaledSum(float s) {
         this.x += s;
         this.y += s;
     }
 
-    // increments the x and y of v by s
+    /**
+     * increments the x and y of v by s
+     * 
+     * @param v
+     * @param s
+     */
     public static void scaledDifference(Vector2D v, float s) {
         v = Vector2D.scaledDifferenceN(v, s);
     }
 
-    // returns new Vector2 object with x and y of v incremented by s
+    /**
+     * returns new Vector2 object with x and y of v incremented by s
+     * 
+     * @param v
+     * @param s
+     */
     public static Vector2D scaledDifferenceN(Vector2D v, float s) {
         return new Vector2D(v.x - s, v.y - s);
     }
 
-    // increments x and y components by s
+    /**
+     * increments x and y components by s
+     * 
+     * @param s
+     */
     public void scaledDifference(float s) {
         this.x -= s;
         this.y -= s;
@@ -101,55 +157,108 @@ public class Vector2D {
 
     // methods for vector operations on Vector2D objects starts here
 
-    // sets v1 = v1 + v2
+    /**
+     * sets v1 = v1 + v2
+     * 
+     * @param v1
+     * @param v2
+     */
     public static void sum(Vector2D v1, Vector2D v2) {
         v1 = sumV(v1, v2);
     }
 
-    // returns v1 + v2
+    /**
+     * @param v1
+     * @param v2
+     * @return v1 + v2
+     */
     public static Vector2D sumV(Vector2D v1, Vector2D v2) {
         return new Vector2D(v1.x + v2.x, v1.y + v2.y);
     }
 
-    // adds v to this
+    /**
+     * adds v to this
+     * 
+     * @param v
+     */
     public void sum(Vector2D v) {
         this.x += v.x;
         this.y += v.y;
     }
 
-    // sets v1 = v1 - v2
+    /**
+     * sets v1 = v1 - v2
+     * 
+     * @param v1
+     * @param v2
+     */
     public static void difference(Vector2D v1, Vector2D v2) {
         v1 = sumV(v1, v2);
     }
 
-    // returns v1 - v2
+    /**
+     * @param v1
+     * @param v2
+     * @return v1 - v2
+     */
     public static Vector2D differenceV(Vector2D v1, Vector2D v2) {
         return new Vector2D(v1.x - v2.x, v1.y - v2.y);
     }
 
-    // subtracts v from this
+    /**
+     * subtracts v from this
+     * 
+     * @param v
+     */
     public void difference(Vector2D v) {
         this.x -= v.x;
         this.y -= v.y;
     }
 
-    // returns v1*v2
+    /**
+     * @param v1
+     * @param v2
+     * @return v1*v2
+     */
     public static float dotProduct(Vector2D v1, Vector2D v2) {
         return (v1.x * v2.x + v1.y * v2.y);
     }
 
-    // The 2D cross product, unlike the 3D version, does not return a vector but a
-    // scalar. This scalar value actually represents the magnitude of the orthogonal
-    // vector along the z-axis, if the cross product were to actually be performed
-    // in 3D.
+    /**
+     * The 2D cross product, unlike the 3D version, does not return a vector but a
+     * scalar. This scalar value actually represents the magnitude of the orthogonal
+     * vector along the z-axis, if the cross product were to actually be performed
+     * in 3D. Returns new Vector2D(f * v.y, -f * v.x)
+     * 
+     * @param v1
+     * @param v2
+     */
     public static float crossProduct(Vector2D v1, Vector2D v2) {
         return v1.x * v2.y - v1.y * v2.x;
     }
 
+    /**
+     * The 2D cross product, unlike the 3D version, does not return a vector but a
+     * scalar. This scalar value actually represents the magnitude of the orthogonal
+     * vector along the z-axis, if the cross product were to actually be performed
+     * in 3D. Returns new Vector2D(f * v.y, -f * v.x)
+     * 
+     * @param v
+     * @param f
+     */
     public static Vector2D crossProduct(Vector2D v, float f) {
         return new Vector2D(f * v.y, -f * v.x);
     }
 
+    /**
+     * The 2D cross product, unlike the 3D version, does not return a vector but a
+     * scalar. This scalar value actually represents the magnitude of the orthogonal
+     * vector along the z-axis, if the cross product were to actually be performed
+     * in 3D. Returns new Vector2D(-f * v.y, f * v.x
+     * 
+     * @param f
+     * @param v
+     */
     public static Vector2D crossProduct(float f, Vector2D v) {
         return new Vector2D(-f * v.y, f * v.x);
     }
@@ -254,10 +363,8 @@ public class Vector2D {
     }
 
     /**
-     * returns an array of len Vector2D objects
-     * 
      * @param len
-     * @return
+     * @return an array of len Vector2D objects
      */
     public static Vector2D[] arrayOf(int len) {
         Vector2D[] arr = new Vector2D[len];
