@@ -1,6 +1,5 @@
 package org.geek8080.physics2d;
 
-
 /**
  * The class handles Vector rotation
  */
@@ -61,6 +60,74 @@ public class Mat22 {
         this.m01 = m.m01;
         this.m10 = m.m10;
         this.m11 = m.m11;
+    }
+
+    /**
+     * Returns a new vector that is the transformation of v by this matrix.
+     */
+    public Vector2D mul(Vector2D v) {
+        return mul(v.x, v.y, new Vector2D());
+    }
+
+    /**
+     * Sets out the to transformation of {x,y} by this matrix.
+     */
+    public Vector2D mul(float x, float y, Vector2D out) {
+        out.x = m00 * x + m01 * y;
+        out.y = m10 * x + m11 * y;
+        return out;
+    }
+
+    /**
+     * Multiplies this matrix by x.
+     */
+    public void muli(Mat22 x) {
+        set(m00 * x.m00 + m01 * x.m10, m00 * x.m01 + m01 * x.m11, m10 * x.m00 + m11 * x.m10, m10 * x.m01 + m11 * x.m11);
+    }
+
+    /**
+     * Sets out to the multiplication of this matrix and x.
+     */
+    public Mat22 mul(Mat22 x, Mat22 out) {
+        out.m00 = m00 * x.m00 + m01 * x.m10;
+        out.m01 = m00 * x.m01 + m01 * x.m11;
+        out.m10 = m10 * x.m00 + m11 * x.m10;
+        out.m11 = m10 * x.m01 + m11 * x.m11;
+        return out;
+    }
+
+    /**
+     * Returns a new matrix that is the multiplication of this and x.
+     */
+    public Mat22 mul(Mat22 x) {
+        return mul(x, new Mat22());
+    }
+
+    /**
+     * Sets the matrix to it's transpose.
+     */
+    public void transposei() {
+        float t = m01;
+        m01 = m10;
+        m10 = t;
+    }
+
+    /**
+     * Sets out to the transpose of this matrix.
+     */
+    public Mat22 transpose(Mat22 out) {
+        out.m00 = m00;
+        out.m01 = m10;
+        out.m10 = m01;
+        out.m11 = m11;
+        return out;
+    }
+
+    /**
+     * Returns a new matrix that is the transpose of this matrix.
+     */
+    public Mat22 transpose() {
+        return transpose(new Mat22());
     }
 
 }
