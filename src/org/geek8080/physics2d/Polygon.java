@@ -73,7 +73,7 @@ public class Polygon extends Shape {
         }
 
         c.scaledMultiplication(1.0f / area);
-        
+
         // Translate vertices to centroid (make the centroid (0, 0)
         // for the polygon in model space)
         for (int i = 0; i < vertexCount; i++) {
@@ -190,6 +190,24 @@ public class Polygon extends Shape {
         normals[1].set(1.0f, 0.0f);
         normals[2].set(0.0f, 1.0f);
         normals[3].set(-1.0f, 0.0f);
+    }
+
+    public Vector2D getSupport(Vector2D dir) {
+
+        float bestProjection = -Float.MAX_VALUE;
+        Vector2D bestVertex = null;
+
+        for (int i = 0; i < vertexCount; i++) {
+            Vector2D v = vertices[i];
+            float projection = Vector2D.dotProduct(v, dir);
+
+            if (projection > bestProjection) {
+                bestVertex = v;
+                bestProjection = projection;
+            }
+        }
+
+        return dir;
     }
 
 }
