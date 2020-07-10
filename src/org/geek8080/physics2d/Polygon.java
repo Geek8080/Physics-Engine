@@ -18,7 +18,7 @@ public class Polygon extends Shape {
     }
 
     public Polygon(Vector2D... verts) {
-        set(vertices);
+        set(verts);
     }
 
     public Polygon(float hw, float hh) {
@@ -64,8 +64,8 @@ public class Polygon extends Shape {
 
             // Use area to weight the centroid average, not just vertex position
             float weight = triangleArea * k_inv3;
-            c.sum(Vector2D.scaledSumN(p1, weight));
-            c.sum(Vector2D.scaledSumN(p2, weight));
+            c.sum(Vector2D.scaledMultiplicationN(p1, weight));
+            c.sum(Vector2D.scaledMultiplicationN(p2, weight));
 
             float intx2 = p1.x * p1.x + p1.x * p2.x + p2.x * p2.x;
             float inty2 = p1.y * p1.y + p1.y * p2.y + p2.y * p2.y;
@@ -81,9 +81,9 @@ public class Polygon extends Shape {
         }
 
         body.mass = density * area;
-        body.invMass = (body.mass != 0) ? 1.0f / body.mass : 0.0f;
+        body.invMass = (body.mass != 0.0f) ? 1.0f / body.mass : 0.0f;
         body.inertia = I * density;
-        body.invInertia = (body.inertia != 0) ? 1.0f / body.inertia : 0.0f;
+        body.invInertia = (body.inertia != 0.0f) ? 1.0f / body.inertia : 0.0f;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package org.geek8080.physics2d;
 
-import sun.security.util.Length;
-
 public class Vector2D {
 
     public float x;
@@ -44,7 +42,7 @@ public class Vector2D {
     }
 
     /**
-     * returns new Vector2 object with x and y of v multiplied by s
+     * returns new Vector2D object with x and y of v multiplied by s
      * 
      * @param v
      * @param s
@@ -74,7 +72,7 @@ public class Vector2D {
     }
 
     /**
-     * returns new Vector2 object with x and y of v divided by s
+     * returns new Vector2D object with x and y of v divided by s
      * 
      * @param v
      * @param s
@@ -104,7 +102,7 @@ public class Vector2D {
     }
 
     /**
-     * returns new Vector2 object with x and y of v incremented by s
+     * returns new Vector2D object with x and y of v incremented by s
      * 
      * @param v
      * @param s
@@ -134,7 +132,7 @@ public class Vector2D {
     }
 
     /**
-     * returns new Vector2 object with x and y of v incremented by s
+     * returns new Vector2D object with x and y of v incremented by s
      * 
      * @param v
      * @param s
@@ -228,10 +226,11 @@ public class Vector2D {
      * The 2D cross product, unlike the 3D version, does not return a vector but a
      * scalar. This scalar value actually represents the magnitude of the orthogonal
      * vector along the z-axis, if the cross product were to actually be performed
-     * in 3D. Returns new Vector2D(f * v.y, -f * v.x)
+     * in 3D.
      * 
      * @param v1
      * @param v2
+     * @return v1.x * v2.y - v1.y * v2.x
      */
     public static float crossProduct(Vector2D v1, Vector2D v2) {
         return v1.x * v2.y - v1.y * v2.x;
@@ -241,10 +240,11 @@ public class Vector2D {
      * The 2D cross product, unlike the 3D version, does not return a vector but a
      * scalar. This scalar value actually represents the magnitude of the orthogonal
      * vector along the z-axis, if the cross product were to actually be performed
-     * in 3D. Returns new Vector2D(f * v.y, -f * v.x)
+     * in 3D.
      * 
      * @param v
      * @param f
+     * @return (f * v.y, -f * v.x)
      */
     public static Vector2D crossProduct(Vector2D v, float f) {
         return new Vector2D(f * v.y, -f * v.x);
@@ -254,10 +254,11 @@ public class Vector2D {
      * The 2D cross product, unlike the 3D version, does not return a vector but a
      * scalar. This scalar value actually represents the magnitude of the orthogonal
      * vector along the z-axis, if the cross product were to actually be performed
-     * in 3D. Returns new Vector2D(-f * v.y, f * v.x
+     * in 3D.
      * 
      * @param f
      * @param v
+     * @return (-f * v.y, f * v.x)
      */
     public static Vector2D crossProduct(float f, Vector2D v) {
         return new Vector2D(-f * v.y, f * v.x);

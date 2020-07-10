@@ -29,7 +29,7 @@ public class Body {
     public float restitution;
 
     // Finally the geometric shape
-    // shape can't be re-initialised as shape won't change mid-way
+    // shape can't be re-initialized as shape won't change mid-way
     public final Shape shape;
 
     public Body(Shape shape, int x, int y) {
