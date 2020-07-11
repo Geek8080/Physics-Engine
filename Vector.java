@@ -51,8 +51,20 @@ public class Vector {
         return (v1.xComponent * v2.xComponent + v1.yComponent * v2.yComponent);
     }
 
-    public static Vector crossProduct(Vector v1, Vector v2) {
-        return new Vector(new Point(v1.getXComponent() * v2.getYComponent(), -v1.getYComponent() * v2.getXComponent()));
+    // The 2D cross product, unlike the 3D version, does not return a vector but a
+    // scalar. This scalar value actually represents the magnitude of the orthogonal
+    // vector along the z-axis, if the cross product were to actually be performed
+    // in 3D.
+    public static double crossProduct(Vector v1, Vector v2) {
+        return v1.getXComponent() * v2.getYComponent() - v1.getYComponent() * v2.getXComponent();
+    }
+
+    public static Vector crossProduct(Vector v1, double d) {
+        return new Vector(new Point(d * v1.getYComponent(), -d * v1.getXComponent()));
+    }
+    
+    public static Vector crossProduct(double d, Vector v1) {
+        return new Vector(new Point(-d * v1.getYComponent(), d * v1.getXComponent()));
     }
 
     public static Vector sum(Vector v1, Vector v2) {
