@@ -24,9 +24,10 @@ public class Vector2D {
         this.y = y;
     }
 
-    public void set(Vector2D v) {
+    public Vector2D set(Vector2D v) {
         this.x = v.x;
         this.y = v.y;
+        return this;
     }
 
     // methods for scaling Vector2D objects starts here

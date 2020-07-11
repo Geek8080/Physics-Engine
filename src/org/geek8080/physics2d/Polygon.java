@@ -207,7 +207,7 @@ public class Polygon extends Shape {
             }
         }
 
-        return dir;
+        return bestVertex;
     }
 
 }

@@ -63,10 +63,24 @@ public class Mat22 {
     }
 
     /**
+     * Sets out to the transformation of v by this matrix.
+     */
+    public Vector2D mul(Vector2D v, Vector2D out) {
+        return mul(v.x, v.y, out);
+    }
+
+    /**
      * Returns a new vector that is the transformation of v by this matrix.
      */
     public Vector2D mul(Vector2D v) {
         return mul(v.x, v.y, new Vector2D());
+    }
+
+    /**
+     * Transforms v by this matrix.
+     */
+    public Vector2D muli(Vector2D v) {
+        return mul(v.x, v.y, v);
     }
 
     /**
