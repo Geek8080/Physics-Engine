@@ -2,21 +2,17 @@ package org.geek8080.physics2d;
 
 public class Vector2D {
 
-	public float x;
-	public float y;
+	public float x, y;
 
 	public Vector2D() {
-
 	}
 
 	public Vector2D(float x, float y) {
-		this.x = x;
-		this.y = y;
+		set(x, y);
 	}
 
 	public Vector2D(Vector2D v) {
-		this.x = v.x;
-		this.y = v.y;
+		set(v);
 	}
 
 	public void set(float x, float y) {
@@ -25,356 +21,375 @@ public class Vector2D {
 	}
 
 	public Vector2D set(Vector2D v) {
-		this.x = v.x;
-		this.y = v.y;
+		x = v.x;
+		y = v.y;
 		return this;
 	}
 
-	// methods for scaling Vector2D objects starts here
-
 	/**
-	 * multiplies the x and y of v by s
-	 * 
-	 * @param v
-	 * @param s
+	 * Negates this vector and returns this.
 	 */
-	public static void scaledMultiplication(Vector2D v, float s) {
-		v = Vector2D.scaledMultiplicationN(v, s);
+	public Vector2D negi() {
+		return neg(this);
 	}
 
 	/**
-	 * returns new Vector2D object with x and y of v multiplied by s
-	 * 
-	 * @param v
-	 * @param s
+	 * Sets out to the negation of this vector and returns out.
 	 */
-	public static Vector2D scaledMultiplicationN(Vector2D v, float s) {
-		return new Vector2D(s * v.x, s * v.y);
+	public Vector2D neg(Vector2D out) {
+		out.x = -x;
+		out.y = -y;
+		return out;
 	}
 
 	/**
-	 * multiplies x and y components by s
-	 * 
-	 * @param s
+	 * Returns a new vector that is the negation to this vector.
 	 */
-	public void scaledMultiplication(float s) {
-		this.x *= s;
-		this.y *= s;
+	public Vector2D neg() {
+		return neg(new Vector2D());
 	}
 
 	/**
-	 * divides the x and y of v by s
-	 * 
-	 * @param v
-	 * @param s
+	 * Multiplies this vector by s and returns this.
 	 */
-	public static void scaledDivision(Vector2D v, float s) {
-		v = Vector2D.scaledDivisionN(v, s);
+	public Vector2D muli(float s) {
+		return mul(s, this);
 	}
 
 	/**
-	 * returns new Vector2D object with x and y of v divided by s
-	 * 
-	 * @param v
-	 * @param s
+	 * Sets out to this vector multiplied by s and returns out.
 	 */
-	public static Vector2D scaledDivisionN(Vector2D v, float s) {
-		return new Vector2D(v.x / s, v.y / s);
+	public Vector2D mul(float s, Vector2D out) {
+		out.x = s * x;
+		out.y = s * y;
+		return out;
 	}
 
 	/**
-	 * divides x and y components by s
-	 * 
-	 * @param s
+	 * Returns a new vector that is a multiplication of this vector and s.
 	 */
-	public void scaledDivision(float s) {
-		this.x /= s;
-		this.y /= s;
+	public Vector2D mul(float s) {
+		return mul(s, new Vector2D());
 	}
 
 	/**
-	 * increments the x and y of v by s
-	 * 
-	 * @param v
-	 * @param s
+	 * Divides this vector by s and returns this.
 	 */
-	public static void scaledSum(Vector2D v, float s) {
-		v = Vector2D.scaledSumN(v, s);
+	public Vector2D divi(float s) {
+		return div(s, this);
 	}
 
 	/**
-	 * returns new Vector2D object with x and y of v incremented by s
-	 * 
-	 * @param v
-	 * @param s
+	 * Sets out to the division of this vector and s and returns out.
 	 */
-	public static Vector2D scaledSumN(Vector2D v, float s) {
-		return new Vector2D(v.x + s, v.y + s);
+	public Vector2D div(float s, Vector2D out) {
+		out.x = x / s;
+		out.y = y / s;
+		return out;
 	}
 
 	/**
-	 * increments x and y components by s
-	 * 
-	 * @param s
+	 * Returns a new vector that is a division between this vector and s.
 	 */
-	public void scaledSum(float s) {
-		this.x += s;
-		this.y += s;
+	public Vector2D div(float s) {
+		return div(s, new Vector2D());
 	}
 
 	/**
-	 * increments the x and y of v by s
-	 * 
-	 * @param v
-	 * @param s
+	 * Adds s to this vector and returns this.
 	 */
-	public static void scaledDifference(Vector2D v, float s) {
-		v = Vector2D.scaledDifferenceN(v, s);
+	public Vector2D addi(float s) {
+		return add(s, this);
 	}
 
 	/**
-	 * returns new Vector2D object with x and y of v incremented by s
-	 * 
-	 * @param v
-	 * @param s
+	 * Sets out to the sum of this vector and s and returns out.
 	 */
-	public static Vector2D scaledDifferenceN(Vector2D v, float s) {
-		return new Vector2D(v.x - s, v.y - s);
+	public Vector2D add(float s, Vector2D out) {
+		out.x = x + s;
+		out.y = y + s;
+		return out;
 	}
 
 	/**
-	 * increments x and y components by s
-	 * 
-	 * @param s
+	 * Returns a new vector that is the sum between this vector and s.
 	 */
-	public void scaledDifference(float s) {
-		this.x -= s;
-		this.y -= s;
-	}
-
-	// methods for scaling Vector2D objects ends here
-
-	// methods for vector operations on Vector2D objects starts here
-
-	/**
-	 * sets v1 = v1 + v2
-	 * 
-	 * @param v1
-	 * @param v2
-	 */
-	public static void sum(Vector2D v1, Vector2D v2) {
-		v1 = sumV(v1, v2);
+	public Vector2D add(float s) {
+		return add(s, new Vector2D());
 	}
 
 	/**
-	 * @param v1
-	 * @param v2
-	 * @return v1 + v2
+	 * Multiplies this vector by v and returns this.
 	 */
-	public static Vector2D sumV(Vector2D v1, Vector2D v2) {
-		return new Vector2D(v1.x + v2.x, v1.y + v2.y);
+	public Vector2D muli(Vector2D v) {
+		return mul(v, this);
 	}
 
 	/**
-	 * adds v to this
-	 * 
-	 * @param v
+	 * Sets out to the product of this vector and v and returns out.
 	 */
-	public void sum(Vector2D v) {
-		this.x += v.x;
-		this.y += v.y;
+	public Vector2D mul(Vector2D v, Vector2D out) {
+		out.x = x * v.x;
+		out.y = y * v.y;
+		return out;
 	}
 
 	/**
-	 * sets v1 = v1 - v2
-	 * 
-	 * @param v1
-	 * @param v2
+	 * Returns a new vector that is the product of this vector and v.
 	 */
-	public static void difference(Vector2D v1, Vector2D v2) {
-		v1 = sumV(v1, v2);
+	public Vector2D mul(Vector2D v) {
+		return mul(v, new Vector2D());
 	}
 
 	/**
-	 * @param v1
-	 * @param v2
-	 * @return v1 - v2
+	 * Divides this vector by v and returns this.
 	 */
-	public static Vector2D differenceV(Vector2D v1, Vector2D v2) {
-		return new Vector2D(v1.x - v2.x, v1.y - v2.y);
+	public Vector2D divi(Vector2D v) {
+		return div(v, this);
 	}
 
 	/**
-	 * subtracts v from this
-	 * 
-	 * @param v
+	 * Sets out to the division of this vector and v and returns out.
 	 */
-	public void difference(Vector2D v) {
-		this.x -= v.x;
-		this.y -= v.y;
+	public Vector2D div(Vector2D v, Vector2D out) {
+		out.x = x / v.x;
+		out.y = y / v.y;
+		return out;
 	}
 
 	/**
-	 * @param v1
-	 * @param v2
-	 * @return v1*v2
+	 * Returns a new vector that is the division of this vector by v.
 	 */
-	public static float dotProduct(Vector2D v1, Vector2D v2) {
-		return (v1.x * v2.x + v1.y * v2.y);
+	public Vector2D div(Vector2D v) {
+		return div(v, new Vector2D());
 	}
 
 	/**
-	 * The 2D cross product, unlike the 3D version, does not return a vector but a
-	 * scalar. This scalar value actually represents the magnitude of the orthogonal
-	 * vector along the z-axis, if the cross product were to actually be performed
-	 * in 3D.
-	 * 
-	 * @param v1
-	 * @param v2
-	 * @return v1.x * v2.y - v1.y * v2.x
+	 * Adds v to this vector and returns this.
 	 */
-	public static float crossProduct(Vector2D v1, Vector2D v2) {
-		return v1.x * v2.y - v1.y * v2.x;
+	public Vector2D addi(Vector2D v) {
+		return add(v, this);
 	}
 
 	/**
-	 * The 2D cross product, unlike the 3D version, does not return a vector but a
-	 * scalar. This scalar value actually represents the magnitude of the orthogonal
-	 * vector along the z-axis, if the cross product were to actually be performed
-	 * in 3D.
-	 * 
-	 * @param v
-	 * @param f
-	 * @return (f * v.y, -f * v.x)
+	 * Sets out to the addition of this vector and v and returns out.
 	 */
-	public static Vector2D crossProduct(Vector2D v, float f) {
-		return new Vector2D(f * v.y, -f * v.x);
+	public Vector2D add(Vector2D v, Vector2D out) {
+		out.x = x + v.x;
+		out.y = y + v.y;
+		return out;
 	}
 
 	/**
-	 * The 2D cross product, unlike the 3D version, does not return a vector but a
-	 * scalar. This scalar value actually represents the magnitude of the orthogonal
-	 * vector along the z-axis, if the cross product were to actually be performed
-	 * in 3D.
-	 * 
-	 * @param f
-	 * @param v
-	 * @return (-f * v.y, f * v.x)
+	 * Returns a new vector that is the addition of this vector and v.
 	 */
-	public static Vector2D crossProduct(float f, Vector2D v) {
-		return new Vector2D(-f * v.y, f * v.x);
+	public Vector2D add(Vector2D v) {
+		return add(v, new Vector2D());
 	}
 
-	// methods for vector operations on Vector2D objects ends here
-
-	// methods for vector manipulation starts here
+	/**
+	 * Adds v * s to this vector and returns this.
+	 */
+	public Vector2D addsi(Vector2D v, float s) {
+		return adds(v, s, this);
+	}
 
 	/**
-	 * @return Squared length of this vector
+	 * Sets out to the addition of this vector and v * s and returns out.
+	 */
+	public Vector2D adds(Vector2D v, float s, Vector2D out) {
+		out.x = x + v.x * s;
+		out.y = y + v.y * s;
+		return out;
+	}
+
+	/**
+	 * Returns a new vector that is the addition of this vector and v * s.
+	 */
+	public Vector2D adds(Vector2D v, float s) {
+		return adds(v, s, new Vector2D());
+	}
+
+	/**
+	 * Subtracts v from this vector and returns this.
+	 */
+	public Vector2D subi(Vector2D v) {
+		return sub(v, this);
+	}
+
+	/**
+	 * Sets out to the subtraction of v from this vector and returns out.
+	 */
+	public Vector2D sub(Vector2D v, Vector2D out) {
+		out.x = x - v.x;
+		out.y = y - v.y;
+		return out;
+	}
+
+	/**
+	 * Returns a new vector that is the subtraction of v from this vector.
+	 */
+	public Vector2D sub(Vector2D v) {
+		return sub(v, new Vector2D());
+	}
+
+	/**
+	 * Returns the squared length of this vector.
 	 */
 	public float lengthSq() {
-		return (this.x * this.x + this.y * this.y);
+		return x * x + y * y;
 	}
 
 	/**
-	 * @return Length of this vector
+	 * Returns the length of this vector.
 	 */
 	public float length() {
-		return (float) StrictMath.sqrt(this.lengthSq());
+		return (float) StrictMath.sqrt(x * x + y * y);
 	}
 
 	/**
-	 * @param v1
-	 * @param v2
-	 * @return Squared distance between two vectors
-	 */
-	public static float distanceSq(Vector2D v1, Vector2D v2) {
-		return (new Vector2D(v2.x - v1.x, v2.y - v1.y)).lengthSq();
-	}
-
-	/**
-	 * @param v
-	 * @return Squared distance between v and this vectors
-	 */
-	public float distanceSq(Vector2D v) {
-		return Vector2D.distanceSq(v, this);
-	}
-
-	/**
-	 * @param v1
-	 * @param v2
-	 * @return Distance between two vectors
-	 */
-	public static float distance(Vector2D v1, Vector2D v2) {
-		return (new Vector2D(v2.x - v1.x, v2.y - v1.y)).length();
-	}
-
-	/**
-	 * @param v
-	 * @return Distance between v and this vectors
-	 */
-	public float distance(Vector2D v) {
-		return Vector2D.distanceSq(v, this);
-	}
-
-	// methods for vector manipulation ends here
-
-	// extra methods
-
-	/**
-	 * 
-	 * Uses rotation matrix concept. In linear algebra, a rotation matrix is a
-	 * matrix that is used to perform a rotation in Euclidean space. Here's a link:
-	 * https://en.wikipedia.org/wiki/Rotation_matrix
-	 * 
-	 * @param radians: Rotates this vector by the given radians
+	 * Rotates this vector by the given radians.
 	 */
 	public void rotate(float radians) {
 		float c = (float) StrictMath.cos(radians);
 		float s = (float) StrictMath.sin(radians);
 
-		float xp = this.x * c - this.y * s;
-		float yp = this.x * s + this.y * c;
+		float xp = x * c - y * s;
+		float yp = x * s + y * c;
 
-		this.x = xp;
-		this.y = yp;
+		x = xp;
+		y = yp;
 	}
 
 	/**
-	 * Normalizes this vector, hence making it an unit vector
+	 * Normalizes this vector, making it a unit vector. A unit vector has a length
+	 * of 1.0.
 	 */
 	public void normalize() {
-		float lensq = this.lengthSq();
+		float lenSq = lengthSq();
 
-		if (lensq > ImpulseMath.EPSILON_SQ) {
-			float invLen = 1.0f / (float) StrictMath.sqrt(lensq);
-			this.x *= invLen;
-			this.y *= invLen;
+		if (lenSq > ImpulseMath.EPSILON_SQ) {
+			float invLen = 1.0f / (float) StrictMath.sqrt(lenSq);
+			x *= invLen;
+			y *= invLen;
 		}
-	}
-
-	@Override
-	public boolean equals(Object v) {
-		Vector2D vector = (Vector2D) v;
-		return (vector.x == this.x && vector.y == this.y);
-	}
-
-	@Override
-	public String toString() {
-		return String.format(" {(%.2f)i + (%.2f)j} ", this.x, this.y);
 	}
 
 	/**
-	 * @param len
-	 * @return an array of len Vector2D objects
+	 * Sets this vector to the minimum between a and b.
 	 */
-	public static Vector2D[] arrayOf(int len) {
-		Vector2D[] arr = new Vector2D[len];
+	public Vector2D mini(Vector2D a, Vector2D b) {
+		return min(a, b, this);
+	}
 
-		while (--len >= 0) {
-			arr[len] = new Vector2D();
+	/**
+	 * Sets this vector to the maximum between a and b.
+	 */
+	public Vector2D maxi(Vector2D a, Vector2D b) {
+		return max(a, b, this);
+	}
+
+	/**
+	 * Returns the dot product between this vector and v.
+	 */
+	public float dot(Vector2D v) {
+		return dot(this, v);
+	}
+
+	/**
+	 * Returns the squared distance between this vector and v.
+	 */
+	public float distanceSq(Vector2D v) {
+		return distanceSq(this, v);
+	}
+
+	/**
+	 * Returns the distance between this vector and v.
+	 */
+	public float distance(Vector2D v) {
+		return distance(this, v);
+	}
+
+	/**
+	 * Sets this vector to the cross between v and a and returns this.
+	 */
+	public Vector2D cross(Vector2D v, float a) {
+		return cross(v, a, this);
+	}
+
+	/**
+	 * Sets this vector to the cross between a and v and returns this.
+	 */
+	public Vector2D cross(float a, Vector2D v) {
+		return cross(a, v, this);
+	}
+
+	/**
+	 * Returns the scalar cross between this vector and v. This is essentially the
+	 * length of the cross product if this vector were 3d. This can also indicate
+	 * which way v is facing relative to this vector.
+	 */
+	public float cross(Vector2D v) {
+		return cross(this, v);
+	}
+
+	public static Vector2D min(Vector2D a, Vector2D b, Vector2D out) {
+		out.x = (float) StrictMath.min(a.x, b.x);
+		out.y = (float) StrictMath.min(a.y, b.y);
+		return out;
+	}
+
+	public static Vector2D max(Vector2D a, Vector2D b, Vector2D out) {
+		out.x = (float) StrictMath.max(a.x, b.x);
+		out.y = (float) StrictMath.max(a.y, b.y);
+		return out;
+	}
+
+	public static float dot(Vector2D a, Vector2D b) {
+		return a.x * b.x + a.y * b.y;
+	}
+
+	public static float distanceSq(Vector2D a, Vector2D b) {
+		float dx = a.x - b.x;
+		float dy = a.y - b.y;
+
+		return dx * dx + dy * dy;
+	}
+
+	public static float distance(Vector2D a, Vector2D b) {
+		float dx = a.x - b.x;
+		float dy = a.y - b.y;
+
+		return (float) StrictMath.sqrt(dx * dx + dy * dy);
+	}
+
+	public static Vector2D cross(Vector2D v, float a, Vector2D out) {
+		out.x = v.y * a;
+		out.y = v.x * -a;
+		return out;
+	}
+
+	public static Vector2D cross(float a, Vector2D v, Vector2D out) {
+		out.x = v.y * -a;
+		out.y = v.x * a;
+		return out;
+	}
+
+	public static float cross(Vector2D a, Vector2D b) {
+		return a.x * b.y - a.y * b.x;
+	}
+
+	/**
+	 * Returns an array of allocated Vector2D of the requested length.
+	 */
+	public static Vector2D[] arrayOf(int length) {
+		Vector2D[] array = new Vector2D[length];
+
+		while (--length >= 0) {
+			array[length] = new Vector2D();
 		}
 
-		return arr;
+		return array;
 	}
+
 }
