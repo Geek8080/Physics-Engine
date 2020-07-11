@@ -5,13 +5,7 @@ public class Polygon extends Shape {
 	public static final int MAX_POLY_VERTEX_COUNT = 64;
 
 	public int vertexCount;
-	/**
-	 * array of all the vertices of the polygon.
-	 */
 	public Vector2D[] vertices = Vector2D.arrayOf(MAX_POLY_VERTEX_COUNT);
-	/**
-	 * array of normals to corresponding faces of the polygon
-	 */
 	public Vector2D[] normals = Vector2D.arrayOf(MAX_POLY_VERTEX_COUNT);
 
 	public Polygon() {
@@ -45,39 +39,33 @@ public class Polygon extends Shape {
 
 	@Override
 	public void computeMass(float density) {
-
-		// Finding COM and MOI
 		Vector2D c = new Vector2D(0.0f, 0.0f);
 		float area = 0.0f;
 		float I = 0.0f;
 		final float k_inv3 = 1.0f / 3.0f;
 
-		for (int i = 0; i < vertexCount; i++) {
-			// Triangle vertices, third vertex implied as (0, 0)
+		for (int i = 0; i < vertexCount; ++i) {
 			Vector2D p1 = vertices[i];
 			Vector2D p2 = vertices[(i + 1) % vertexCount];
 
-			float D = Vector2D.crossProduct(p1, p2);
+			float D = Vector2D.cross(p1, p2);
 			float triangleArea = 0.5f * D;
 
 			area += triangleArea;
 
-			// Use area to weight the centroid average, not just vertex position
 			float weight = triangleArea * k_inv3;
-			c.sum(Vector2D.scaledMultiplicationN(p1, weight));
-			c.sum(Vector2D.scaledMultiplicationN(p2, weight));
+			c.addsi(p1, weight);
+			c.addsi(p2, weight);
 
-			float intx2 = p1.x * p1.x + p1.x * p2.x + p2.x * p2.x;
-			float inty2 = p1.y * p1.y + p1.y * p2.y + p2.y * p2.y;
-			I += (0.25 * k_inv3 * D) * (intx2 + inty2);
+			float intx2 = p1.x * p1.x + p2.x * p1.x + p2.x * p2.x;
+			float inty2 = p1.y * p1.y + p2.y * p1.y + p2.y * p2.y;
+			I += (0.25f * k_inv3 * D) * (intx2 + inty2);
 		}
 
-		c.scaledMultiplication(1.0f / area);
+		c.muli(1.0f / area);
 
-		// Translate vertices to centroid (make the centroid (0, 0)
-		// for the polygon in model space)
-		for (int i = 0; i < vertexCount; i++) {
-			vertices[i].difference(c);
+		for (int i = 0; i < vertexCount; ++i) {
+			vertices[i].subi(c);
 		}
 
 		body.mass = density * area;
@@ -96,20 +84,28 @@ public class Polygon extends Shape {
 		return Type.Polygon;
 	}
 
-	private void set(Vector2D... verts) {
+	public void setBox(float hw, float hh) {
+		vertexCount = 4;
+		vertices[0].set(-hw, -hh);
+		vertices[1].set(hw, -hh);
+		vertices[2].set(hw, hh);
+		vertices[3].set(-hw, hh);
+		normals[0].set(0.0f, -1.0f);
+		normals[1].set(1.0f, 0.0f);
+		normals[2].set(0.0f, 1.0f);
+		normals[3].set(-1.0f, 0.0f);
+	}
 
-		// Find the right most point on the hull
+	public void set(Vector2D... verts) {
 		int rightMost = 0;
 		float highestXCoord = verts[0].x;
-
-		for (int i = 1; i < verts.length; i++) {
+		for (int i = 1; i < verts.length; ++i) {
 			float x = verts[i].x;
 
 			if (x > highestXCoord) {
 				highestXCoord = x;
 				rightMost = i;
 			} else if (x == highestXCoord) {
-				// If matching x then take farthest negative y
 				if (verts[i].y < verts[rightMost].y) {
 					rightMost = i;
 				}
@@ -123,37 +119,23 @@ public class Polygon extends Shape {
 		for (;;) {
 			hull[outCount] = indexHull;
 
-			// Search for next index that wraps around the hull
-			// by computing cross products to find the most counter-clockwise
-			// vertex in the set, given the previous hull index
 			int nextHullIndex = 0;
-
-			for (int i = 1; i < verts.length; i++) {
-				// Skip if same coordinate as we need three unique
-				// points in the set to perform a cross product
+			for (int i = 1; i < verts.length; ++i) {
 				if (nextHullIndex == indexHull) {
 					nextHullIndex = i;
 					continue;
 				}
 
-				// Cross every set of three unique vertices
-				// Record each counter clockwise third vertex and add
-				// to the output hull
-				// See : http://www.oocities.org/pcgpe/math2d.html
-				Vector2D e1 = Vector2D.differenceV(verts[nextHullIndex], verts[hull[outCount]]);
-				Vector2D e2 = Vector2D.differenceV(verts[i], verts[hull[outCount]]);
-				float c = Vector2D.crossProduct(e1, e2);
+				Vector2D e1 = verts[nextHullIndex].sub(verts[hull[outCount]]);
+				Vector2D e2 = verts[i].sub(verts[hull[outCount]]);
+				float c = Vector2D.cross(e1, e2);
 				if (c < 0.0f) {
 					nextHullIndex = i;
-					// this i correspond to a concave surface
 				}
 
-				// Cross product is zero then e vectors are on same line
-				// therefore want to record vertex farthest along that line
 				if (c == 0.0f && e2.lengthSq() > e1.lengthSq()) {
 					nextHullIndex = i;
 				}
-
 			}
 
 			++outCount;
@@ -165,41 +147,25 @@ public class Polygon extends Shape {
 			}
 		}
 
-		// copy vertices into shape's vertices
-		for (int i = 0; i < vertexCount; i++) {
+		for (int i = 0; i < vertexCount; ++i) {
 			vertices[i].set(verts[hull[i]]);
 		}
 
-		// compute face normals
-		for (int i = 0; i < vertexCount; i++) {
-			Vector2D face = Vector2D.differenceV(vertices[(i + 1) % vertexCount], vertices[i]);
+		for (int i = 0; i < vertexCount; ++i) {
+			Vector2D face = vertices[(i + 1) % vertexCount].sub(vertices[i]);
 
-			// Calculate normal with 2D cross product between vector and scalar
 			normals[i].set(face.y, -face.x);
 			normals[i].normalize();
 		}
 	}
 
-	public void setBox(float hw, float hh) {
-		vertexCount = 4;
-		vertices[0].set(-hw, -hh);
-		vertices[1].set(hw, -hh);
-		vertices[2].set(hw, hh);
-		vertices[3].set(-hw, hh);
-		normals[0].set(0.0f, -1.0f);
-		normals[1].set(1.0f, 0.0f);
-		normals[2].set(0.0f, 1.0f);
-		normals[3].set(-1.0f, 0.0f);
-	}
-
 	public Vector2D getSupport(Vector2D dir) {
-
 		float bestProjection = -Float.MAX_VALUE;
 		Vector2D bestVertex = null;
 
-		for (int i = 0; i < vertexCount; i++) {
+		for (int i = 0; i < vertexCount; ++i) {
 			Vector2D v = vertices[i];
-			float projection = Vector2D.dotProduct(v, dir);
+			float projection = Vector2D.dot(v, dir);
 
 			if (projection > bestProjection) {
 				bestVertex = v;

@@ -5,14 +5,14 @@ public class CollisionCircleCircle implements CollisionCallback {
 	public static final CollisionCircleCircle instance = new CollisionCircleCircle();
 
 	@Override
-	public void handleCollision(Manifold m, Body body1, Body body2) {
-		Circle a = (Circle) body1.shape;
-		Circle b = (Circle) body2.shape;
+	public void handleCollision(Manifold m, Body a, Body b) {
+		Circle A = (Circle) a.shape;
+		Circle B = (Circle) b.shape;
 
-		Vector2D normal = Vector2D.differenceV(body2.position, body1.position);
+		Vector2D normal = b.position.sub(a.position);
 
 		float dist_sqr = normal.lengthSq();
-		float radius = a.radius + b.radius;
+		float radius = A.radius + B.radius;
 
 		if (dist_sqr >= radius * radius) {
 			m.contactCount = 0;
@@ -24,15 +24,13 @@ public class CollisionCircleCircle implements CollisionCallback {
 		m.contactCount = 1;
 
 		if (distance == 0.0f) {
-			m.penetration = a.radius;
-			m.normal.set(1.0f, 1.0f);
-			m.contacts[0].set(body1.position);
+			m.penetration = A.radius;
+			m.normal.set(1.0f, 0.0f);
+			m.contacts[0].set(a.position);
 		} else {
 			m.penetration = radius - distance;
-			// Faster than using Normalized since we already performed sqrt
-			m.normal.set(normal);
-			m.normal.scaledDivision(distance);
-			m.contacts[0].set(Vector2D.sumV(Vector2D.scaledMultiplicationN(m.normal, a.radius), body1.position));
+			m.normal.set(normal).divi(distance);
+			m.contacts[0].set(m.normal).muli(A.radius).addi(a.position);
 		}
 	}
 

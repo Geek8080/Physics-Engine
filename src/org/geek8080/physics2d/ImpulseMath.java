@@ -1,4 +1,3 @@
-
 package org.geek8080.physics2d;
 
 public class ImpulseMath {
@@ -10,7 +9,7 @@ public class ImpulseMath {
 	public static final float BIAS_ABSOLUTE = 0.01f;
 	public static final float DT = 1.0f / 60.0f;
 	public static final Vector2D GRAVITY = new Vector2D(0.0f, 50.0f);
-	public static final float RESTING =  Vector2D.scaledMultiplicationN(GRAVITY, DT).lengthSq() + EPSILON;
+	public static final float RESTING = GRAVITY.mul(DT).lengthSq() + EPSILON;
 	public static final float PENETRATION_ALLOWANCE = 0.05f;
 	public static final float PENETRATION_CORRETION = 0.4f;
 

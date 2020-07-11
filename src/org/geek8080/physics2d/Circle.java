@@ -1,7 +1,7 @@
 package org.geek8080.physics2d;
 
 public class Circle extends Shape {
-	
+
 	public Circle(float r) {
 		radius = r;
 	}
@@ -32,5 +32,5 @@ public class Circle extends Shape {
 	public Type getType() {
 		return Type.Circle;
 	}
-	
+
 }

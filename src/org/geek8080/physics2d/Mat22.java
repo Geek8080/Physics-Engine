@@ -1,65 +1,143 @@
 package org.geek8080.physics2d;
 
-/**
- * The class handles Vector rotation
- */
 public class Mat22 {
 
 	public float m00, m01;
 	public float m10, m11;
 
 	public Mat22() {
-
-	}
-
-	public Mat22(float a, float b, float c, float d) {
-		this.set(a, b, c, d);
 	}
 
 	public Mat22(float radians) {
-		this.set(radians);
+		set(radians);
+	}
+
+	public Mat22(float a, float b, float c, float d) {
+		set(a, b, c, d);
 	}
 
 	/**
-	 * Sets rotation matrix to rotate a vector by radians.
-	 * 
-	 * @param radians
+	 * Sets this matrix to a rotation matrix with the given radians.
 	 */
 	public void set(float radians) {
 		float c = (float) StrictMath.cos(radians);
 		float s = (float) StrictMath.sin(radians);
 
-		this.m00 = c;
-		this.m01 = -s;
-		this.m10 = s;
-		this.m11 = c;
+		m00 = c;
+		m01 = -s;
+		m10 = s;
+		m11 = c;
 	}
 
 	/**
-	 * Sets the value for m00, m01, m10, m11
-	 * 
-	 * @param a: m00
-	 * @param b: m01
-	 * @param c: m10
-	 * @param d: m11
+	 * Sets the values of this matrix.
 	 */
 	public void set(float a, float b, float c, float d) {
-		this.m00 = a;
-		this.m01 = b;
-		this.m10 = c;
-		this.m11 = d;
+		m00 = a;
+		m01 = b;
+		m10 = c;
+		m11 = d;
 	}
 
 	/**
-	 * sets values for m00, m01, m10, m11 of this matrix as that of m
-	 * 
-	 * @param m
+	 * Sets this matrix to have the same values as the given matrix.
 	 */
 	public void set(Mat22 m) {
-		this.m00 = m.m00;
-		this.m01 = m.m01;
-		this.m10 = m.m10;
-		this.m11 = m.m11;
+		m00 = m.m00;
+		m01 = m.m01;
+		m10 = m.m10;
+		m11 = m.m11;
+	}
+
+	/**
+	 * Sets the values of this matrix to their absolute value.
+	 */
+	public void absi() {
+		abs(this);
+	}
+
+	/**
+	 * Returns a new matrix that is the absolute value of this matrix.
+	 */
+	public Mat22 abs() {
+		return abs(new Mat22());
+	}
+
+	/**
+	 * Sets out to the absolute value of this matrix.
+	 */
+	public Mat22 abs(Mat22 out) {
+		out.m00 = StrictMath.abs(m00);
+		out.m01 = StrictMath.abs(m01);
+		out.m10 = StrictMath.abs(m10);
+		out.m11 = StrictMath.abs(m11);
+		return out;
+	}
+
+	/**
+	 * Sets out to the x-axis (1st column) of this matrix.
+	 */
+	public Vector2D getAxisX(Vector2D out) {
+		out.x = m00;
+		out.y = m10;
+		return out;
+	}
+
+	/**
+	 * Returns a new vector that is the x-axis (1st column) of this matrix.
+	 */
+	public Vector2D getAxisX() {
+		return getAxisX(new Vector2D());
+	}
+
+	/**
+	 * Sets out to the y-axis (2nd column) of this matrix.
+	 */
+	public Vector2D getAxisY(Vector2D out) {
+		out.x = m01;
+		out.y = m11;
+		return out;
+	}
+
+	/**
+	 * Returns a new vector that is the y-axis (2nd column) of this matrix.
+	 */
+	public Vector2D getAxisY() {
+		return getAxisY(new Vector2D());
+	}
+
+	/**
+	 * Sets the matrix to it's transpose.
+	 */
+	public void transposei() {
+		float t = m01;
+		m01 = m10;
+		m10 = t;
+	}
+
+	/**
+	 * Sets out to the transpose of this matrix.
+	 */
+	public Mat22 transpose(Mat22 out) {
+		out.m00 = m00;
+		out.m01 = m10;
+		out.m10 = m01;
+		out.m11 = m11;
+		return out;
+	}
+
+	/**
+	 * Returns a new matrix that is the transpose of this matrix.
+	 */
+	public Mat22 transpose() {
+		return transpose(new Mat22());
+	}
+
+	/**
+	 * Transforms v by this matrix.
+	 */
+	public Vector2D muli(Vector2D v) {
+		return mul(v.x, v.y, v);
 	}
 
 	/**
@@ -74,13 +152,6 @@ public class Mat22 {
 	 */
 	public Vector2D mul(Vector2D v) {
 		return mul(v.x, v.y, new Vector2D());
-	}
-
-	/**
-	 * Transforms v by this matrix.
-	 */
-	public Vector2D muli(Vector2D v) {
-		return mul(v.x, v.y, v);
 	}
 
 	/**
@@ -115,33 +186,6 @@ public class Mat22 {
 	 */
 	public Mat22 mul(Mat22 x) {
 		return mul(x, new Mat22());
-	}
-
-	/**
-	 * Sets the matrix to it's transpose.
-	 */
-	public void transposei() {
-		float t = m01;
-		m01 = m10;
-		m10 = t;
-	}
-
-	/**
-	 * Sets out to the transpose of this matrix.
-	 */
-	public Mat22 transpose(Mat22 out) {
-		out.m00 = m00;
-		out.m01 = m10;
-		out.m10 = m01;
-		out.m11 = m11;
-		return out;
-	}
-
-	/**
-	 * Returns a new matrix that is the transpose of this matrix.
-	 */
-	public Mat22 transpose() {
-		return transpose(new Mat22());
 	}
 
 }

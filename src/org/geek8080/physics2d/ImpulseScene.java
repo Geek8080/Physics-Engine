@@ -82,6 +82,7 @@ public class ImpulseScene {
 		bodies.clear();
 	}
 
+	// see http://www.niksula.hut.fi/~hkankaan/Homepages/gravity.html
 	public void integrateForces(Body b, float dt) {
 
 		if (b.invMass == 0.0f) {
@@ -90,7 +91,8 @@ public class ImpulseScene {
 
 		float dts = dt * 0.5f;
 
-		b.velocity.sum(Vector2D.scaledMultiplicationN(Vector2D.sumV(Vector2D.scaledMultiplicationN(b.force, b.invMass), ImpulseMath.GRAVITY), dts));
+		b.velocity.addsi(b.force, b.invMass * dts);
+		b.velocity.addsi(ImpulseMath.GRAVITY, dts);
 		b.angularVelocity += b.torque * b.invInertia * dts;
 	}
 
@@ -100,7 +102,7 @@ public class ImpulseScene {
 			return;
 		}
 
-		b.position.sum(Vector2D.scaledMultiplicationN(b.velocity, dt));
+		b.position.addsi(b.velocity, dt);
 		b.orient += b.angularVelocity * dt;
 		b.setOrient(b.orient);
 
